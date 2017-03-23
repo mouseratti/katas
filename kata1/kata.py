@@ -125,20 +125,20 @@
 #     return inputted
 
 
-def make_kata(inputted):
-    """Test finished in 2.796117067337036 seconds"""
-    inputted = inputted.lower()
-    inputted_list = list(inputted)
-    def gen(li):
-        nonuniq = []
-        while li:
-            symbol = li.pop(0)
-            if symbol in nonuniq:
-                out = ')'
-            elif symbol in li:
-                out = ')'
-                nonuniq.append(symbol)                
-            else:
-                out = '('
-            yield out
-    return ''.join(_ for _ in gen(inputted_list))
+# def make_kata(inputted):
+#     """Test finished in 2.796117067337036 seconds"""
+#     inputted = inputted.lower()
+#     inputted_list = list(inputted)
+#     def gen(li):
+#         nonuniq = []
+#         while li:
+#             symbol = li.pop(0)
+#             if symbol in nonuniq:
+#                 out = ')'
+#             elif symbol in li:
+#                 out = ')'
+#                 nonuniq.append(symbol)                
+#             else:
+#                 out = '('
+#             yield out
+#     return ''.join(_ for _ in gen(inputted_list))
