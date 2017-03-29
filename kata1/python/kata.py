@@ -143,34 +143,51 @@
 #             yield out
 #     return ''.join(_ for _ in gen(inputted_list))
 
-def make_kata(inputted=''):
-    inputted_list = []
-    nonuniq = []
-    uniq = []
-    unique_indexes = []
-    length = len(inputted)
-    while length >= 0:
-        symbol = inputted[position-1].lower()
-        if symbol in nonuniq:
-            inputted_list += [symbol]
-        else:
+# def make_kata(inputted=''):
+#     inputted_list = []
+#     nonuniq = []
+#     uniq = []
+#     unique_indexes = []
+#     length = len(inputted)
+#     while length >= 0:
+#         symbol = inputted[position-1].lower()
+#         if symbol in nonuniq:
+#             inputted_list += [symbol]
+#         else:
             
 
-    while not :
-        pass
-    for pos, symbol in enumerate(inputted):
-        lower_symbol = symbol.lower()
-        if lower_symbol in symbols:
-            inputted_list.append(')')
-        else:
-            inputted_list.append(lower_symbol)
-            symbols.append(lower_symbol)
-            unique_indexes.append(pos)
-    for position in unique_indexes:
-        if inputted_list[position] in symbols:
-            inputted_list[position] = ')'
-        else:
-            inputted_list[position] = '('
-    # return ''.join(inputted_list)
-    return inputted_list
+#     while not :
+#         pass
+#     for pos, symbol in enumerate(inputted):
+#         lower_symbol = symbol.lower()
+#         if lower_symbol in symbols:
+#             inputted_list.append(')')
+#         else:
+#             inputted_list.append(lower_symbol)
+#             symbols.append(lower_symbol)
+#             unique_indexes.append(pos)
+#     for position in unique_indexes:
+#         if inputted_list[position] in symbols:
+#             inputted_list[position] = ')'
+#         else:
+#             inputted_list[position] = '('
+#     # return ''.join(inputted_list)
+#     return inputted_list
 
+def make_kata(input_string=''):
+    output = ''
+    uniq = []
+    not_uniq = []
+    input_string = input_string.lower()
+    for symbol in input_string:
+        if symbol in uniq:
+            uniq.remove(symbol)
+            not_uniq.append(symbol)
+        elif symbol not in not_uniq:
+            uniq.append(symbol)
+    for symbol in input_string:
+        if symbol in uniq:
+            output += '('
+        else:
+            output += ')'
+    return output
