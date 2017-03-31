@@ -174,3 +174,20 @@ def make_kata(inputted):
 #     # return ''.join(inputted_list)
 #     return inputted_list
 
+def make_kata(input_string=''):
+    output = ''
+    uniq = []
+    not_uniq = []
+    input_string = input_string.lower()
+    for symbol in input_string:
+        if symbol in uniq:
+            uniq.remove(symbol)
+            not_uniq.append(symbol)
+        elif symbol not in not_uniq:
+            uniq.append(symbol)
+    for symbol in input_string:
+        if symbol in uniq:
+            output += '('
+        else:
+            output += ')'
+    return output
