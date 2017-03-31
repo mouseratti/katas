@@ -1,7 +1,7 @@
 package kata
 
 // import "strings"
-
+import "sort"
 import f "fmt"
 
 // func MakeKata(inputted string) string {
@@ -52,22 +52,32 @@ func in_string(symbol rune, str string) bool {
     return false
 }
 
+func cut(inp *string, ind int) {
+    mapa := make(map[int]rune)
+    for pos, s := range *inp {
+        if pos == ind {
+            continue
+        }
+        mapa[pos] = s
+    }
+    *inp = ""
+    var keys []int
+    for key := range mapa {
+        keys = append(keys, key)
+    }
+    sort.Ints(keys)
+    for _, key := range keys {
+        *inp += string(mapa[key])
+    }
+}
+
 func RemoveFromString(str string, symbol rune, count int) string {
     index := 0
     max_length := len(str)
-    concat := func(inp *string, ind int) {
-        inp_copy := *inp
-        if ind == 0 {
-            inp_copy = inp_copy[ind+1:]
-        } else {
-            inp_copy = inp_copy[:ind-1] + inp_copy[:ind+1]
-        }
-        *inp = inp_copy
-    }
 
     for {
         if symbol == rune(str[index]) {
-            concat(&str, index)
+            cut(&str, index)
         }
         index += 1
         if index >= len(str) || index >= max_length {

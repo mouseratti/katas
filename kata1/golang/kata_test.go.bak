@@ -25,14 +25,14 @@ var FIXTURES_REMOVE_FROM_STRING []fixture = []fixture{
     {"qwertyyyc", 'q', 0, "wertyyyc"},
 }
 
-func Test_RemoveFromString(t *testing.T) {
-    for _, fixtura := range FIXTURES_REMOVE_FROM_STRING {
-        result := RemoveFromString(fixtura.input, fixtura.symbol, fixtura.count)
-        if result != fixtura.expected {
-            t.Error(result, " is not equal to ", fixtura.expected)
-        }
-    }
-}
+// func Test_RemoveFromString(t *testing.T) {
+//     for _, fixtura := range FIXTURES_REMOVE_FROM_STRING {
+//         result := RemoveFromString(fixtura.input, fixtura.symbol, fixtura.count)
+//         if result != fixtura.expected {
+//             t.Error(result, " is not equal to ", fixtura.expected)
+//         }
+//     }
+// }
 
 // func TestKata1(t *testing.T) {
 //     for _, fixture := range FIXTURES {
