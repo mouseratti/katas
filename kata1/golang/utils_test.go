@@ -31,3 +31,27 @@ func Benchmark_cut(b *testing.B) {
         cut(&str, 3)
     }
 }
+
+// type fixture struct {
+//     input    string
+//     symbol   rune
+//     count    int
+//     expected string
+// }
+
+// var FIXTURES_REMOVE_FROM_STRING []fixture = []fixture{
+//     {"eeeeee", 'e', 1, "eeeee"},
+//     {"abeecc", 'e', 2, "abcc"},
+//     {"qwertyyyc", 'y', 0, "qwert"},
+//     {"qwertyyycyyyyyy", 'y', 0, "qwert"},
+//     {"qwertyyyc", 'q', 0, "wertyyyc"},
+// }
+
+// func Test_RemoveFromString(t *testing.T) {
+//     for _, fixtura := range FIXTURES_REMOVE_FROM_STRING {
+//         result := RemoveFromString(fixtura.input, fixtura.symbol, fixtura.count)
+//         if result != fixtura.expected {
+//             t.Error(result, " is not equal to ", fixtura.expected)
+//         }
+//     }
+// }
