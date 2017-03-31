@@ -3,7 +3,7 @@ package kata
 import "testing"
 
 var FIXTURES [][]string = [][]string{
-    {"eeee", "))))"},
+    {"⌘eeee", "())))"},
     {"eeeae", ")))()"},
     {"The Goal of this", "))()()(())()))(("},
     {"Where Each Character", "())))))))))))))))())"},
@@ -16,5 +16,11 @@ func TestKata1(t *testing.T) {
         if result != fixture[1] {
             t.Error(result, " is not equal to ", fixture[1])
         }
+    }
+}
+
+func BenchmarkKata1(b *testing.B) {
+    for i := 0; i < b.N; i++ {
+        MakeKata("This is the best string I ever Watched")
     }
 }
