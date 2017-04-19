@@ -8,13 +8,17 @@ var FIXTURES [][]string = [][]string{
     {"The Goal of this", "))()()(())()))(("},
     {"Where Each Character", "())))))))))))))))())"},
     {"Exercise is to Convert", ")()))))))))))))))(()))"},
+    {"(bra) p(ora)", ")()))(()()))"},
 }
 
 func TestKata1(t *testing.T) {
     for _, fixture := range FIXTURES {
         result := MakeKata(fixture[0])
         if result != fixture[1] {
-            t.Error(result, " is not equal to ", fixture[1])
+            t.Errorf("%T %v len %v != %T %v len %v",
+                result, result, len(result),
+                fixture[1], fixture[1], len(fixture[1]),
+            )
         }
     }
 }

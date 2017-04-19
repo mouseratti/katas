@@ -1,6 +1,6 @@
 package kata
 
-// import "strings"
+import "strings"
 
 // func MakeKata(inputted string) string {
 //     lower := strings.ToLower(inputted)
@@ -42,5 +42,21 @@ package kata
 // }
 
 func MakeKata(input string) string {
-    return ""
+    input = strings.ToLower(input)
+    var out []rune = []rune{}
+    symbols := make(map[rune]rune)
+    for _, sym := range input {
+        switch symbols[sym] {
+        case ')':
+            continue
+        case '(':
+            symbols[sym] = ')'
+        default:
+            symbols[sym] = '('
+        }
+    }
+    for _, sym := range input {
+        out = append(out, symbols[sym])
+    }
+    return string(out)
 }
