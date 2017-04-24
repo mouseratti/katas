@@ -1,0 +1,2 @@
+create function that gets ipv4 address with mask on input and returns subnet address and broadcast
+for this subnet.
