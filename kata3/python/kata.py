@@ -43,11 +43,17 @@ def make_kata(ipaddr):
     subnet = ip[:mask] + '0' * (32 - mask)
     broadcast = ip[:mask] + '1' * (32 - mask)
     assert len(subnet) == len(broadcast) == 32
-    return subnet, broadcast
+    def to_decimal_ip(binary_ip):
+        iplist = [binary_ip[x:x+8] for x in range(0, len(binary_ip), 8)]
+        for position, binary_octet in enumerate(iplist):
+            octet = 0
+            for pos, symbol in enumerate(binary_octet):
+                octet += int(symbol) * 2 ** (7 - pos)
+            iplist[position] = str(octet)
+        return '.'.join(iplist)
+    return to_decimal_ip(subnet), to_decimal_ip(broadcast)
 
 
-def to_decimal_ip(binary_ip):
-    iplist = [binary_ip[x:x+8] for x in range(0, len(binary_ip), 8)]
-    for binary_octet in iplist:
-        for pos in 
+
+
 
