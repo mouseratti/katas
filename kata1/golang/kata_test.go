@@ -9,6 +9,7 @@ var FIXTURES [][]string = [][]string{
     {"Where Each Character", "())))))))))))))))())"},
     {"Exercise is to Convert", ")()))))))))))))))(()))"},
     {"(bra) p(ora)", ")()))(()()))"},
+    {")govno( porno", "(()())((()())"},
 }
 
 func TestKata1(t *testing.T) {

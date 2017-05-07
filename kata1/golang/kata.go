@@ -2,6 +2,8 @@ package kata
 
 import "strings"
 
+// import "fmt"
+
 // func MakeKata(inputted string) string {
 //     lower := strings.ToLower(inputted)
 
@@ -41,22 +43,69 @@ import "strings"
 //     return outputted
 // }
 
-func MakeKata(input string) string {
-    input = strings.ToLower(input)
-    var out []rune = []rune{}
-    symbols := make(map[rune]rune)
-    for _, sym := range input {
-        switch symbols[sym] {
+// func MakeKata(input string) string {
+//     input = strings.ToLower(input)
+//     var out []rune = []rune{}
+//     symbols := make(map[rune]rune)
+//     for _, sym := range input {
+//         switch symbols[sym] {
+//         case ')':
+//             continue
+//         case '(':
+//             symbols[sym] = ')'
+//         default:
+//             symbols[sym] = '('
+//         }
+//     }
+//     for _, sym := range input {
+//         out = append(out, symbols[sym])
+//     }
+//     return string(out)
+// }
+
+/*
+func MakeKata(inp string) string {
+    out := []rune(strings.ToLower(inp))
+    dict := make(map[rune]rune)
+
+    for _, symbol := range out {
+        switch dict[symbol] {
         case ')':
             continue
         case '(':
-            symbols[sym] = ')'
+            dict[symbol] = ')'
         default:
-            symbols[sym] = '('
+            dict[symbol] = '('
+
         }
+
     }
-    for _, sym := range input {
-        out = append(out, symbols[sym])
+    for pos, symbol := range out {
+        out[pos] = dict[symbol]
     }
     return string(out)
+}
+*/
+
+func MakeKata(input string) string {
+    output := []rune(strings.ToLower(input))
+    d := make(map[rune]rune)
+    for _, symbol := range output {
+        switch d[symbol] {
+        case ')':
+            continue
+        case '(':
+            d[symbol] = ')'
+        default:
+            d[symbol] = '('
+        }
+    }
+    for pos, symbol := range output {
+        // if symbol == ')' && d[symbol] == ')' {
+        //     continue
+        // }
+        output[pos] = d[symbol]
+    }
+    return string(output)
+
 }
