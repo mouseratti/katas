@@ -66,52 +66,24 @@ import "math"
 // }
 
 type Ipv4address struct {
-    ip   string
+    ip   [4]int
     mask int
 }
 
-func (self Ipv4address) to_integer() (out [4]int) {
-    octets := strings.Split(self.ip, ".")
-    for pos, octet := range octets {
-        out[pos], _ = strconv.Atoi(octet)
-    }
-    return
-}
-
 func (self Ipv4address) to_binary() (out [32]bool) {
-    octets := self.to_integer()
-    binary_ip_string := fmt.Sprintf(
-        "%8b%8b%8b%8b",
-        octets[0],
-        octets[1],
-        octets[2],
-        octets[3],
-    )
+    binary_ip_string := fmt.Sprintf("%8b%8b%8b%8b", self.ip[0], self.ip[1], self.ip[2], self.ip[3])
     for pos, bit := range binary_ip_string {
-        switch bit {
-        case '1':
+        if bit == '1' {
             out[pos] = true
-        default:
-            out[pos] = false
         }
     }
     return
 }
 
-func (self Ipv4address) subnet() (out string) {
+func (self Ipv4address) count(flag bool) (out string) {
     binary_ip := self.to_binary()
     for i := self.mask; i < 32; i++ {
-        binary_ip[i] = false
-    }
-    octets := from_binary(binary_ip)
-    out = fmt.Sprintf("%v.%v.%v.%v", octets[0], octets[1], octets[2], octets[3])
-    return
-}
-
-func (self Ipv4address) broadcast() (out string) {
-    binary_ip := self.to_binary()
-    for i := self.mask; i < 32; i++ {
-        binary_ip[i] = true
+        binary_ip[i] = flag
     }
     octets := from_binary(binary_ip)
     out = fmt.Sprintf("%v.%v.%v.%v", octets[0], octets[1], octets[2], octets[3])
@@ -119,17 +91,27 @@ func (self Ipv4address) broadcast() (out string) {
 }
 
 func from_binary(binary_ip [32]bool) (out [4]int) {
-    mult := 0.0
     index := 0
-    for _, bit := range binary_ip {
-        if bit {
-            out[index] += int(math.Pow(2.0, 7-mult))
-        }
-        mult += 1
-        if mult > 7 {
+    mult := 7.0
+    for pos, bit := range binary_ip {
+        switch pos {
+        case 8, 16, 24:
             index += 1
-            mult = 0
+            mult = 7
         }
+        if bit {
+            out[index] += int(math.Pow(2.0, mult))
+        }
+        mult -= 1
+
+    }
+    return
+}
+
+func to_octets(ip string) (out [4]int) {
+    octets := strings.Split(ip, ".")
+    for pos, octet := range octets {
+        out[pos], _ = strconv.Atoi(octet)
     }
     return
 }
@@ -137,6 +119,6 @@ func from_binary(binary_ip [32]bool) (out [4]int) {
 func MakeKata(ipaddress string) (string, string) {
     ipslice := strings.Split(ipaddress, "/")
     mask, _ := strconv.Atoi(ipslice[1])
-    ip := Ipv4address{ipslice[0], mask}
-    return ip.subnet(), ip.broadcast()
+    ip := Ipv4address{to_octets(ipslice[0]), mask}
+    return ip.count(false), ip.count(true)
 }
