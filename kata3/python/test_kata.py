@@ -14,3 +14,13 @@ fixtures = [
 @pytest.mark.parametrize("inp, subnet, broadcast", fixtures)
 def test_kata3(inp, subnet, broadcast):
     assert make_kata(inp) == (subnet, broadcast)
+
+
+
+@pytest.mark.benchmark(
+    # min_rounds=30000,
+    # disable_gc=True,
+    # warmup=True
+)
+def test_benchmark(benchmark):
+    benchmark(make_kata, "10.20.30.40/28")
