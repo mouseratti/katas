@@ -70,17 +70,16 @@ type Ipv4address struct {
     mask int
 }
 
-func (self Ipv4address) to_binary() (out [32]bool) {
-    binary_ip_string := fmt.Sprintf("%8b%8b%8b%8b", self.ip[0], self.ip[1], self.ip[2], self.ip[3])
-    for pos, bit := range binary_ip_string {
-        if bit == '1' {
-            out[pos] = true
-        }
-    }
-    return
+func (self *Ipv4address) to_binary() []byte {
+    b := make([]byte, 32)
+    ipreader := strings.NewReader(
+        fmt.Sprintf("%8b%8b%8b%8b", self.ip[0], self.ip[1], self.ip[2], self.ip[3]),
+    )
+    ipreader.Read(b)
+    return b
 }
 
-func (self Ipv4address) count(flag bool) (out string) {
+func (self *Ipv4address) count(flag byte) (out string) {
     binary_ip := self.to_binary()
     for i := self.mask; i < 32; i++ {
         binary_ip[i] = flag
@@ -90,7 +89,7 @@ func (self Ipv4address) count(flag bool) (out string) {
     return
 }
 
-func from_binary(binary_ip [32]bool) (out [4]int) {
+func from_binary(binary_ip []byte) (out [4]int) {
     index := 0
     mult := 7.0
     for pos, bit := range binary_ip {
@@ -99,7 +98,7 @@ func from_binary(binary_ip [32]bool) (out [4]int) {
             index += 1
             mult = 7
         }
-        if bit {
+        if bit == '1' {
             out[index] += int(math.Pow(2.0, mult))
         }
         mult -= 1
@@ -120,5 +119,5 @@ func MakeKata(ipaddress string) (string, string) {
     ipslice := strings.Split(ipaddress, "/")
     mask, _ := strconv.Atoi(ipslice[1])
     ip := Ipv4address{to_octets(ipslice[0]), mask}
-    return ip.count(false), ip.count(true)
+    return ip.count('0'), ip.count('1')
 }
