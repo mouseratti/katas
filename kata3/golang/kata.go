@@ -1,124 +1,55 @@
-package kata3
+package kata
 
 import "strings"
 import "strconv"
-import "fmt"
 import "math"
+import "fmt"
 
-// func MakeKata(ipaddress string) (subnet, broadcast string) {
-//     ipslice := strings.Split(ipaddress, "/")
-//     ip, strmask := ipslice[0], ipslice[1]
-//     mask, _ := strconv.Atoi(strmask)
-//     binary_ip := make([]bool, 32)
-//     binary_ip_index := 0
-//     for _, val := range strings.Split(ip, ".") {
-//         intval, _ := strconv.Atoi(val)
-//         binary_val := fmt.Sprintf("%8b", intval)
-//         for _, val := range binary_val {
-//             switch val {
-//             case '1':
-//                 binary_ip[binary_ip_index] = true
-//             default:
-//                 binary_ip[binary_ip_index] = false
-//             }
-//             binary_ip_index += 1
-//         }
-//     }
-//     // counting subnet
-//     octet_slice := make([]byte, 4)
-//     index := 0
-//     mult := 7.0
-//     for i := mask; i < 32; i++ {
-//         binary_ip[i] = false
-//     }
-//     for i := 0; i < 32; i++ {
-//         if binary_ip[i] {
-//             octet_slice[index] += byte(math.Pow(2.0, mult))
-//         }
-//         mult -= 1
-//         if mult < 0 {
-//             index += 1
-//             mult = 7.0
-//         }
-//     }
-//     subnet = fmt.Sprintf("%v.%v.%v.%v", octet_slice[0], octet_slice[1], octet_slice[2], octet_slice[3])
-
-//     // counting broadcast
-//     octet_slice = make([]byte, 4)
-//     index = 0
-//     mult = 7.0
-//     for i := mask; i < 32; i++ {
-//         binary_ip[i] = true
-//     }
-//     for i := 0; i < 32; i++ {
-//         if binary_ip[i] {
-//             octet_slice[index] += byte(math.Pow(2.0, mult))
-//         }
-//         mult -= 1
-//         if mult < 0 {
-//             index += 1
-//             mult = 7.0
-//         }
-//     }
-//     broadcast = fmt.Sprintf("%v.%v.%v.%v", octet_slice[0], octet_slice[1], octet_slice[2], octet_slice[3])
-
-//     return
-// }
-
-type Ipv4address struct {
-    ip   [4]int
-    mask int
-}
-
-func (self Ipv4address) to_binary() (out [32]bool) {
-    binary_ip_string := fmt.Sprintf("%8b%8b%8b%8b", self.ip[0], self.ip[1], self.ip[2], self.ip[3])
-    for pos, bit := range binary_ip_string {
-        if bit == '1' {
-            out[pos] = true
+func to_binary(ip string) (binary_ip [32]bool) {
+    binIpSlice := strings.Split(ip, ".")
+    var ipArray [4]int
+    for pos, val := range binIpSlice {
+        ipArray[pos], _ = strconv.Atoi(val)
+    }
+    binaryIpString := fmt.Sprintf("%08b%08b%08b%08b", ipArray[0], ipArray[1], ipArray[2], ipArray[3])
+    for pos, val := range binaryIpString {
+        if val == '1' {
+            binary_ip[pos] = true
         }
     }
     return
 }
 
-func (self Ipv4address) count(flag bool) (out string) {
-    binary_ip := self.to_binary()
-    for i := self.mask; i < 32; i++ {
-        binary_ip[i] = flag
-    }
-    octets := from_binary(binary_ip)
-    out = fmt.Sprintf("%v.%v.%v.%v", octets[0], octets[1], octets[2], octets[3])
-    return
-}
-
-func from_binary(binary_ip [32]bool) (out [4]int) {
+func to_integer(binary_ip [32]bool) (ip string) {
+    var ipArray [4]int
+    mult := 0.0
     index := 0
-    mult := 7.0
-    for pos, bit := range binary_ip {
+    for pos, val := range binary_ip {
         switch pos {
         case 8, 16, 24:
             index += 1
-            mult = 7
+            mult = 0
         }
-        if bit {
-            out[index] += int(math.Pow(2.0, mult))
-        }
-        mult -= 1
 
+        if val {
+            ipArray[index] += int(math.Pow(2.0, 7-mult))
+        }
+        mult += 1
     }
+    ip = fmt.Sprintf("%v.%v.%v.%v", ipArray[0], ipArray[1], ipArray[2], ipArray[3])
     return
 }
 
-func to_octets(ip string) (out [4]int) {
-    octets := strings.Split(ip, ".")
-    for pos, octet := range octets {
-        out[pos], _ = strconv.Atoi(octet)
+func MakeKata(input string) (subnet, broadcast string) {
+    ipSlice := strings.Split(input, "/")
+    mask, _ := strconv.Atoi(ipSlice[1])
+    ip := to_binary(ipSlice[0])
+    binSubnet, binBroadcast := ip, ip
+    for i := mask; i < 32; i++ {
+        binSubnet[i] = false
+        binBroadcast[i] = true
     }
+    subnet = to_integer(binSubnet)
+    broadcast = to_integer(binBroadcast)
     return
-}
-
-func MakeKata(ipaddress string) (string, string) {
-    ipslice := strings.Split(ipaddress, "/")
-    mask, _ := strconv.Atoi(ipslice[1])
-    ip := Ipv4address{to_octets(ipslice[0]), mask}
-    return ip.count(false), ip.count(true)
 }

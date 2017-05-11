@@ -1,4 +1,4 @@
-package kata3
+package kata
 
 import "testing"
 
@@ -13,6 +13,6 @@ func TestKata(t *testing.T) {
 
 func BenchmarkKata(b *testing.B) {
     for i := 0; i < b.N; i++ {
-        MakeKata("10.30.40.1/28")
+        MakeKata("109.130.40.1/28")
     }
 }
