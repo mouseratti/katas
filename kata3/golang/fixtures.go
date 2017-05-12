@@ -1,4 +1,4 @@
-package kata3
+package kata
 
 type fixture struct {
     input     string
