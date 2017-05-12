@@ -1,55 +1,57 @@
 package kata
 
-import "strings"
-import "strconv"
-import "math"
-import "fmt"
+import (
+    "fmt"
+    "math"
+    "strconv"
+    "strings"
+)
 
-func to_binary(ip string) (binary_ip [32]bool) {
-    binIpSlice := strings.Split(ip, ".")
-    var ipArray [4]int
-    for pos, val := range binIpSlice {
-        ipArray[pos], _ = strconv.Atoi(val)
-    }
-    binaryIpString := fmt.Sprintf("%08b%08b%08b%08b", ipArray[0], ipArray[1], ipArray[2], ipArray[3])
-    for pos, val := range binaryIpString {
-        if val == '1' {
-            binary_ip[pos] = true
+func MakeKata(ipaddr string) (s, b string) {
+    toBinary := func(ip string) (binaryIp [32]bool) {
+        ipslice := strings.Split(ip, ".")
+        var ipInteger [4]int
+        for p, v := range ipslice {
+            ipInteger[p], _ = strconv.Atoi(v)
         }
-    }
-    return
-}
-
-func to_integer(binary_ip [32]bool) (ip string) {
-    var ipArray [4]int
-    mult := 0.0
-    index := 0
-    for pos, val := range binary_ip {
-        switch pos {
-        case 8, 16, 24:
-            index += 1
-            mult = 0
+        for p, v := range fmt.Sprintf(
+            "%08b%08b%08b%08b",
+            ipInteger[0],
+            ipInteger[1],
+            ipInteger[2],
+            ipInteger[3]) {
+            if v == '1' {
+                binaryIp[p] = true
+            }
         }
-
-        if val {
-            ipArray[index] += int(math.Pow(2.0, 7-mult))
-        }
-        mult += 1
+        return
     }
-    ip = fmt.Sprintf("%v.%v.%v.%v", ipArray[0], ipArray[1], ipArray[2], ipArray[3])
-    return
-}
 
-func MakeKata(input string) (subnet, broadcast string) {
-    ipSlice := strings.Split(input, "/")
+    toInt := func(binaryIp [32]bool) (ip string) {
+        var ipInteger [4]float64
+        index := 0
+        mult := 7.0
+        for p, v := range binaryIp {
+            switch p {
+            case 8, 16, 24:
+                index += 1
+                mult = 7
+            }
+            if v {
+                ipInteger[index] += math.Pow(2.0, mult)
+            }
+            mult -= 1
+        }
+        ip = fmt.Sprintf("%v.%v.%v.%v", ipInteger[0], ipInteger[1], ipInteger[2], ipInteger[3])
+        return
+    }
+    ipSlice := strings.Split(ipaddr, "/")
+    binaryIp := toBinary(ipSlice[0])
     mask, _ := strconv.Atoi(ipSlice[1])
-    ip := to_binary(ipSlice[0])
-    binSubnet, binBroadcast := ip, ip
+    binarySubnet, binaryBroadcast := binaryIp, binaryIp
     for i := mask; i < 32; i++ {
-        binSubnet[i] = false
-        binBroadcast[i] = true
+        binarySubnet[i], binaryBroadcast[i] = false, true
     }
-    subnet = to_integer(binSubnet)
-    broadcast = to_integer(binBroadcast)
+    s, b = toInt(binarySubnet), toInt(binaryBroadcast)
     return
 }
