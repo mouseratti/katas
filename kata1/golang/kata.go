@@ -88,24 +88,24 @@ func MakeKata(inp string) string {
 */
 
 func MakeKata(input string) string {
-    output := []rune(strings.ToLower(input))
-    d := make(map[rune]rune)
-    for _, symbol := range output {
-        switch d[symbol] {
-        case ')':
-            continue
-        case '(':
-            d[symbol] = ')'
-        default:
-            d[symbol] = '('
-        }
-    }
-    for pos, symbol := range output {
-        // if symbol == ')' && d[symbol] == ')' {
-        //     continue
-        // }
-        output[pos] = d[symbol]
-    }
-    return string(output)
+	output := []rune(strings.ToLower(input))
+	d := make(map[rune]rune)
+	for _, symbol := range output {
+		switch d[symbol] {
+		case ')':
+			continue
+		case '(':
+			d[symbol] = ')'
+		default:
+			d[symbol] = '('
+		}
+	}
+	for pos, symbol := range output {
+		// if symbol == ')' && d[symbol] == ')' {
+		//     continue
+		// }
+		output[pos] = d[symbol]
+	}
+	return string(output)
 
 }

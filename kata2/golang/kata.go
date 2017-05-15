@@ -75,23 +75,23 @@ func MakeKata(input string) string {
 */
 
 func rot13(i byte) byte {
-    switch {
-    case 65 <= i && i <= 77, 97 <= i && i <= 109:
-        i += 13
-    case 78 <= i && i <= 100, 110 <= i && i <= 122:
-        i -= 13
-    }
+	switch {
+	case 65 <= i && i <= 77, 97 <= i && i <= 109:
+		i += 13
+	case 78 <= i && i <= 100, 110 <= i && i <= 122:
+		i -= 13
+	}
 
-    return i
+	return i
 }
 
 func MakeKata(input string) string {
-    length := len(input)
-    out := make([]byte, length)
-    br := strings.NewReader(input)
-    br.Read(out)
-    for pos, val := range out {
-        out[pos] = rot13(val)
-    }
-    return string(out)
+	length := len(input)
+	out := make([]byte, length)
+	br := strings.NewReader(input)
+	br.Read(out)
+	for pos, val := range out {
+		out[pos] = rot13(val)
+	}
+	return string(out)
 }
