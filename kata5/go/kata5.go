@@ -4,11 +4,18 @@ package kata5
 
 func make_kata(input []int64) []int64 {
 	lastElement := len(input) - 1
-	for i := 0; i <= lastElement; i++ {
-		if needToPush(input, i) {
-			push_buble(input, i)
+	for {
+		for i := 0; i <= lastElement; i++ {
+			if needToPush(input, i) {
+				push_buble(input, i)
+			}
+		}
+		lastElement -= 1
+		if lastElement < 0 {
+			break
 		}
 	}
+
 	return input
 
 }
