@@ -1,8 +1,19 @@
 package kata5
 
+
 type fixture struct {
 	input    []int64
 	expected []int64
+}
+
+func (f *fixture) reverseInput() {
+	var s int64
+	last := len(f.input) - 1
+	for i:=0;i < last / 2; i++ {
+		s = f.input[i]
+		f.input[i] = f.input[last-i]
+		f.input[last-i] = s
+	}
 }
 
 type push_buble_fixture struct {
@@ -20,6 +31,10 @@ var fixtures []fixture = []fixture{
 	{
 		[]int64{10,9,8, 7, 6,5,4,3,2,1,0},
 		[]int64{0,1,2,3,4,5,6,7,8,9,10},
+	},
+	{
+		[]int64{8,1,8,2,8,15,19,18},
+		[]int64{1,2,8,8,8, 15,18,19},
 	},
 
 
