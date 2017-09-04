@@ -26,5 +26,29 @@ package kata5
 //}
 
 func make_kata2(input []int64) []int64 {
+	length := len(input)
+	last := length - 1
+	for {
+		for i := 0; i < last; i++ {
+			try_push(input, i, last)
+		}
+		last -= 1
+		if last == 0 {
+			break
+		}
+	}
 	return input
+}
+
+func try_push(input []int64, pos int, last int) {
+	if pos == last {
+		return
+	}
+	if input[pos] > input[pos + 1] {
+		s := input[pos]
+		input[pos] = input[pos + 1]
+		input[pos + 1] = s
+
+	}
+	return
 }

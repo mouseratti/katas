@@ -27,9 +27,3 @@ func Test_push_buble(t *testing.T) {
 		assert.Equal(t, f.expected_slice, f.input_slice, "not equal")
 	}
 }
-
-func BenchmarkKata(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		make_kata([]int64{10,9,8,7,6,5,4,3,2,1})
-	}
-}

@@ -12,9 +12,3 @@ func TestKata2(t *testing.T)  {
 	}
 
 }
-
-func BenchmarkKata2(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		make_kata2([]int64{10,9,8,7,6,5,4,3,2,1})
-	}
-}
