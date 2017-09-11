@@ -1,6 +1,5 @@
 package kata6
 
-
 type changePostitionFixture struct {
 	input     []int
 	expected  []int
@@ -8,33 +7,33 @@ type changePostitionFixture struct {
 }
 
 var changePositionFixtureList []changePostitionFixture = []changePostitionFixture{
-	changePostitionFixture{
+	{
 		[]int{6, 5, 4, 3, 2, 1},
 		[]int{2, 6, 5, 4, 3, 1},
 		[2]int{4, 0},
 	},
-	changePostitionFixture{
+	{
 		[]int{6, 5, 4, 3, 2, 1},
 		[]int{6, 2, 5, 4, 3, 1},
 		[2]int{4, 1},
 	},
 
-	changePostitionFixture{
+	{
 		[]int{6, 5, 4, 3, 2, 1},
 		[]int{5, 4, 3, 6, 2, 1},
 		[2]int{0, 3},
 	},
-	changePostitionFixture{
+	{
 		[]int{6, 5, 4, 3, 2, 1},
 		[]int{6, 5, 4, 3, 2, 1},
 		[2]int{0, 0},
 	},
-	changePostitionFixture{
+	{
 		[]int{6, 5, 4, 3, 2, 1},
 		[]int{6, 5, 4, 3, 2, 1},
 		[2]int{5, 5},
 	},
-	changePostitionFixture{
+	{
 		[]int{6, 5, 4, 3, 2, 1},
 		[]int{5, 6, 4, 3, 2, 1},
 		[2]int{0, 1},
