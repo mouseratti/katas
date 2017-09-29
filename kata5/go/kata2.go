@@ -44,10 +44,10 @@ func try_push(input []int64, pos int, last int) {
 	if pos == last {
 		return
 	}
-	if input[pos] > input[pos + 1] {
+	if input[pos] > input[pos+1] {
 		s := input[pos]
-		input[pos] = input[pos + 1]
-		input[pos + 1] = s
+		input[pos] = input[pos+1]
+		input[pos+1] = s
 
 	}
 	return

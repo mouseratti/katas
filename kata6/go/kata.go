@@ -1,6 +1,5 @@
 package kata6
 
-
 type Sorted interface {
 	Sort()
 }
@@ -32,10 +31,10 @@ func (self *KataFixture6) changePosition(position int, newPosition int) {
 
 }
 
-func make_kata(s Sorted) Sorted {
-	s.Sort()
-	return s
-}
+//func make_kata(s Sorted) Sorted {
+//	s.Sort()
+//	return s
+//}
 
 func getNextPos(pos int, newPos int) (result int) {
 	result = pos

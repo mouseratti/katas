@@ -1,8 +1,8 @@
 package kata5
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestKata5(t *testing.T) {
@@ -18,8 +18,6 @@ func Test_check_input_slice(t *testing.T) {
 		assert.Equal(t, val.expected, val.input, "They should be equal")
 	}
 }
-
-
 
 func Test_push_buble(t *testing.T) {
 	for _, f := range push_buble_fixtures {

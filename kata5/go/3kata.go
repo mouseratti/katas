@@ -16,11 +16,11 @@ func make_kata3(input []int64) []int64 {
 	return input
 }
 
-func try_push3(position int, lastElement int, input[]int64) {
+func try_push3(position int, lastElement int, input []int64) {
 	if position == lastElement {
 		return
 	}
-	if input[position] > input[position + 1] {
-		input[position + 1], input[position] = input[position], input[position + 1]
+	if input[position] > input[position+1] {
+		input[position+1], input[position] = input[position], input[position+1]
 	}
 }

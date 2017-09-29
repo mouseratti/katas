@@ -1,6 +1,6 @@
 package kata5
-// buble sort
 
+// buble sort
 
 func make_kata(input []int64) []int64 {
 	lastElement := len(input) - 1
@@ -22,13 +22,13 @@ func make_kata(input []int64) []int64 {
 
 func push_buble(slice []int64, position int) {
 	var storage int64
-	storage = slice[position + 1]
-	slice[position + 1] = slice[position]
+	storage = slice[position+1]
+	slice[position+1] = slice[position]
 	slice[position] = storage
 	return
 
 }
 
 func needToPush(input []int64, position int) bool {
-	return position < len(input) -1 && input[position] > input[position +1]
+	return position < len(input)-1 && input[position] > input[position+1]
 }
