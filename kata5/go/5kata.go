@@ -17,7 +17,7 @@ func is_sorted(input []int) bool {
 func make_kata5(input []int) {
 	maxPosition := len(input) - 1
 	var s int
-	for maxPosition > 1 {
+	for maxPosition > 0 {
 		for i := 0; i < maxPosition; i++ {
 			if input[i] > input[i + 1] {
 				s = input[i]
