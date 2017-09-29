@@ -32,3 +32,9 @@ func BenchmarkKata5(b *testing.B) {
 		make_kata5([]int{10, 9, 8, 7, 6, 5, 4, 3, 2, 1})
 	}
 }
+
+func BenchmarkKata5(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		make_kata5([]int{10,9,8,7,6,5,4,3,2,1})
+	}
+}

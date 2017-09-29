@@ -1,40 +1,23 @@
 package kata6
 
-type Sorted interface {
-	Sort()
-}
-
-type KataFixture6 struct {
-	input    []int
-	expected []int
-}
-
-func (self *KataFixture6) Sort() {
-}
-
-func (self *KataFixture6) changePosition(position int, newPosition int) {
+func changePosition(inp []int, position int, newPosition int) {
 	switch newPosition - position {
 	case 1, -1:
-		s := self.input[position]
-		self.input[position], self.input[newPosition] = self.input[newPosition], s
+		s := inp[position]
+		inp[position], inp[newPosition] = inp[newPosition], s
 		return
 	default:
 		break
 	}
 
-	for self.input[position] != self.input[newPosition] {
+	for inp[position] != inp[newPosition] {
 		nextPosition := getNextPos(position, newPosition)
-		self.changePosition(position, nextPosition)
+		changePosition(inp, position, nextPosition)
 		position = nextPosition
 	}
 	return
 
 }
-
-//func make_kata(s Sorted) Sorted {
-//	s.Sort()
-//	return s
-//}
 
 func getNextPos(pos int, newPos int) (result int) {
 	result = pos
@@ -44,4 +27,28 @@ func getNextPos(pos int, newPos int) (result int) {
 		result = pos + 1
 	}
 	return result
+}
+
+func is_sorted(input []int) bool {
+	length := len(input)
+	for pos, val := range input {
+		if pos == length - 1 {
+			break
+		}
+		if val > input[pos + 1] {
+			return false
+		}
+	}
+	return true
+}
+
+func make_kata(input []int) {
+	for pos, val := range input {
+		for sortedPos, sortedVal := range input[:pos] {
+			if val < sortedVal {
+				changePosition(input, pos, sortedPos)
+				break
+			}
+		}
+	}
 }

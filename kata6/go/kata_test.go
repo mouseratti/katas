@@ -1,32 +1,24 @@
 package kata6
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
-	//"fmt"
+	"github.com/stretchr/testify/assert"
+	"fmt"
 )
 
 func Test_kata(t *testing.T) {
-	kataFixture.Sort()
-	assert.Equal(t, kataFixture.expected, kataFixture.input, "not equal")
+	for _, fix := range kataFixtureList {
+		make_kata(fix)
+		assert.True(t, is_sorted(fix), fmt.Sprintf("%v is not sorted properly", fix))
+	}
 }
 
 func Test_changePosition(t *testing.T) {
-	f := getFixture()
-	f.changePosition(1, 5)
-	assert.Equal(t, f.input, []int{6, 4, 3, 2, 1, 5})
-	f.changePosition(4, 2)
-	assert.Equal(t, f.input, []int{6, 4, 1, 3, 2, 5})
-	f.changePosition(0, 5)
-	assert.Equal(t, f.input, []int{4, 1, 3, 2, 5, 6})
-	f.changePosition(0, 5)
-	assert.Equal(t, f.input, []int{1, 3, 2, 5, 6, 4})
-	f.changePosition(5, 0)
-	assert.Equal(t, f.input, []int{4, 1, 3, 2, 5, 6})
-	f.changePosition(0, 0)
-	assert.Equal(t, f.input, []int{4, 1, 3, 2, 5, 6})
-	f.changePosition(5, 5)
-	assert.Equal(t, f.input, []int{4, 1, 3, 2, 5, 6})
+	for _, f := range changePositionFixtureList {
+		changePosition(f.input, f.positions[0], f.positions[1])
+		assert.Equal(t, f.expected, f.input, "not equal")
+
+	}
 
 }
 
