@@ -2,3 +2,15 @@
 *.pyo
 **/.cache/*
 .idea/*
+/projectFilesBackup/
+.cache/
+.idea/
+kata1/python/.cache/
+kata1/python/__pycache__/
+kata3/python/.benchmarks/
+kata3/python/.cache/
+kata3/python/__pycache__/
+kata4/python/.benchmarks/
+kata4/python/.cache/
+kata4/python/__pycache__/
+projectFilesBackup/
