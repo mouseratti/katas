@@ -1,10 +1,11 @@
 package kata5
 
-import "testing"
-import "github.com/stretchr/testify/assert"
-import "fmt"
+import (
+	"github.com/stretchr/testify/assert"
+	"testing"
+)
 
-func Test_make_kata6(t *testing.T) {
+func Test_make_kata2(t *testing.T) {
 	fixtures := [][]int{
 		{10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0, 7, 6, 1},
 		{10, 9, 8, 7, 6, 5, 344, 3, 888992, 1, 0, 7, 6, 10000000000000},
@@ -16,7 +17,7 @@ func Test_make_kata6(t *testing.T) {
 		{10, 9, 8, 7, 6, 5, 4, 355, 2848, 1, 0, -1, -2, -100, -355, -400},
 	}
 	for _, val := range fixtures {
-		make_kata6(val)
-		assert.True(t, is_sorted(val), fmt.Sprintf("%v is not sorted properly!", val))
+		result := Make_kata2(val...)
+		assert.True(t, is_sorted(result))
 	}
 }

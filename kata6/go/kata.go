@@ -32,10 +32,10 @@ func getNextPos(pos int, newPos int) (result int) {
 func is_sorted(input []int) bool {
 	length := len(input)
 	for pos, val := range input {
-		if pos == length - 1 {
+		if pos == length-1 {
 			break
 		}
-		if val > input[pos + 1] {
+		if val > input[pos+1] {
 			return false
 		}
 	}

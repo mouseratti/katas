@@ -3,10 +3,10 @@ package kata5
 func is_sorted(input []int) bool {
 	length := len(input)
 	for pos, val := range input {
-		if val > input[pos + 1] {
+		if val > input[pos+1] {
 			return false
 		}
-		if pos == length - 2 {
+		if pos == length-2 {
 			break
 		}
 
@@ -19,9 +19,9 @@ func make_kata5(input []int) {
 	var s int
 	for maxPosition > 0 {
 		for i := 0; i < maxPosition; i++ {
-			if input[i] > input[i + 1] {
+			if input[i] > input[i+1] {
 				s = input[i]
-				input[i], input[i + 1] = input[i + 1], s
+				input[i], input[i+1] = input[i+1], s
 			}
 		}
 		maxPosition -= 1

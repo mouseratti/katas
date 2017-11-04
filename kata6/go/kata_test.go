@@ -1,9 +1,9 @@
 package kata6
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"fmt"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func Test_kata(t *testing.T) {
