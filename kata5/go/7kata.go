@@ -24,10 +24,10 @@ func Sort(input []Sortable) []Sortable {
 
 type MyInt int
 
-func (self MyInt) Equal(i Sortable) bool {
+func (self *MyInt) Equal(i Sortable) bool {
 	return self == i
 }
 
-func (self MyInt) Greater(i Sortable) bool {
-	return self > i
+func (self *MyInt) Greater(i Sortable) bool {
+	return bool(i - self)
 }
