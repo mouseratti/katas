@@ -26,7 +26,20 @@ func GetFixture(length int) Fixture {
 	rand.Seed(time.Now().UnixNano())
 	f := Fixture{make([]int64, length)}
 	for i := 0; i < length; i++ {
-		f.Input[i] = rand.Int63n(100)
+		f.Input[i] = rand.Int63n(999)
 	}
 	return f
+}
+
+
+func GetFixturePointer(length int) *Fixture {
+	rand.Seed(time.Now().UnixNano())
+	f := new(Fixture)
+	input := make([]int64, length)
+	for i := 0; i < length; i++ {
+		input[i] = rand.Int63n(999)
+	}
+	f.Input = input
+	return f
+
 }
