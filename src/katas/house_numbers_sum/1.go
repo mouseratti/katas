@@ -23,5 +23,11 @@ func make_kata2(input []int64) int64 {
 }
 
 func make_kata3(input ...int64) (result int64) {
-	return 0
+	for pos, _ := range input {
+		if input[pos] == 0 {
+			return
+		}
+		result += input[pos]
+	}
+	return
 }

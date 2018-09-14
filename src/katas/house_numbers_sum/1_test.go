@@ -27,6 +27,19 @@ func Test_kata(t *testing.T) {
 
 }
 
-//func ()  {
-//
-//}
+func Benchmark_make_kata1(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		make_kata1([]int64{1, 2, 3, 5, 7, 8, 9, 0, 4, 0, 5, 0})
+	}
+}
+func Benchmark_make_kata2(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		make_kata2([]int64{1, 2, 3, 5, 7, 8, 9, 0, 4, 0, 5, 0})
+	}
+}
+
+func Benchmark_make_kata3(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		make_kata3([]int64{1, 2, 3, 5, 7, 8, 9, 0, 4, 0, 5, 0}...)
+	}
+}
