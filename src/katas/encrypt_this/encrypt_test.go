@@ -56,7 +56,7 @@ func Benchmark_isInSet(b *testing.B) {
 
 func Benchmark_make_kata1(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		make_kata1(fixtures[0].input)
+		make_kata1(longString)
 	}
 
 }
