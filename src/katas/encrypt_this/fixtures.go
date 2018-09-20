@@ -55,3 +55,5 @@ var fixtures_isInSet = []struct {
 	{5, []interface{}{"a", 2, int64(10)}, false},
 	{'!', []interface{}{'!', ',', '.'}, true},
 }
+
+var largeSet garbage = garbage{1, "2", "3.0", "chetyure", '5', "!!!!!!", struct{}{}, 50000}
