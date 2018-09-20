@@ -49,7 +49,7 @@ func Test_isInSet(t *testing.T) {
 
 func Benchmark_isInSet(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		isInSet('!', 1, 2, 5, 6, 7, 8, '!', '2', "22")
+		isInSet("1!!", largeSet)
 	}
 
 }

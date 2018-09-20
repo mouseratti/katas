@@ -27,3 +27,24 @@ func Test_garbage_contains(t *testing.T) {
 			})
 	}
 }
+
+func Test_makeGarbageMap(t *testing.T) {
+	expected := _GarbageMap{1: struct{}{}, 2: struct{}{}, "3": struct{}{}}
+	input := []interface{}{1, 2, "3"}
+	assert.Equal(t, expected, makeGarbageMap(input))
+}
+
+func Benchmark_garbage_contains(b *testing.B) {
+	elem := "1!!"
+	for i := 0; i < b.N; i++ {
+		largeSet.contains(elem)
+	}
+}
+
+func Benchmark_garbageMap_contains(b *testing.B) {
+	elem := "1!!"
+	gm := makeGarbageMap(largeSet)
+	for i := 0; i < b.N; i++ {
+		gm.contains(elem)
+	}
+}
