@@ -26,3 +26,13 @@ func Test_kata1(t *testing.T) {
 		})
 	}
 }
+func Benchmark_kata1(b *testing.B) {
+	length := 10000
+	slice := make([]int, length)
+	for i := 0; i < length; i++ {
+		slice[i] = 5 * i
+	}
+	for i := 0; i < b.N; i++ {
+		make_kata1(slice, 1)
+	}
+}
