@@ -15,7 +15,7 @@ const testFullResult = `├───project
 │	│	└───ipsum
 │	│		└───gopher.png (70372b)
 │	├───css
-│	│	└───body.css (28b)
+│	│ 	└───body.css (28b)
 │	├───empty.txt (empty)
 │	├───html
 │	│	└───index.html (57b)

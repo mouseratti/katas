@@ -1,11 +1,13 @@
 package main
 
-import "os"
-import "io"
+import (
+	"fmt"
+	"os"
+)
 
-//"fmt"
-//"io"
-//import 	"os"
+import "io"
+import "io/ioutil"
+import "katas/coursera/dirtree/node"
 
 func main() {
 	out := os.Stdout
@@ -20,6 +22,14 @@ func main() {
 	}
 }
 
-func dirTree(out io.Reader, path string, doPrintFiles bool) error {
+func dirTree(out io.Writer, path string, printFiles bool) error {
+	result, err := ioutil.ReadDir(path)
+	if err != nil {
+		return err
+	}
+	firstLevelnodes := node.NewSlice(result, path)
+	var stringSlice []string
+	stringSlice = node.Print(firstLevelnodes, printFiles)
+	fmt.Println(stringSlice)
 	return nil
 }
