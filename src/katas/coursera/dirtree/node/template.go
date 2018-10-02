@@ -2,8 +2,9 @@ package node
 
 //type Template string
 
-const fullTemplate = "%v%s───%v (%v)\n"
-const shortTemplate = "%v%s───%v\n"
-const separator = "│   "
+const fullTemplate = "───%v (%v)\n"
+const shortTemplate = "───%v\n"
+const noEmptySeparator = "│   "
+const emptySeparator = "    "
 const normalStringStart = "├"
 const lastStringStart = "└"

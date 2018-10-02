@@ -27,9 +27,10 @@ func dirTree(out io.Writer, path string, printFiles bool) error {
 	if err != nil {
 		return err
 	}
-	firstLevelnodes := node.NewSlice(result, path)
-	var stringSlice []string
-	stringSlice = node.Print(firstLevelnodes, printFiles)
-	fmt.Println(stringSlice)
+	firstLevelnodes := node.NewSlice(result, path, nil)
+	buff := node.Print(firstLevelnodes, printFiles)
+	for i := range buff {
+		fmt.Println(i)
+	}
 	return nil
 }

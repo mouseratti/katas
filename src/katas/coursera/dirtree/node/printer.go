@@ -5,60 +5,57 @@ import (
 	"strings"
 )
 
-func Print(nodes []Node, verbose bool) []string {
-	var result []string
-	var template = shortTemplate
-	nestingLevel := 0
-	if verbose {
-		template = fullTemplate
-	}
-	result = nodesAsStringSlice(nodes, &template, nestingLevel)
+func Print(nodes []Node, verbose bool) chan string {
+	result := make(chan string)
+	nodesAsStringSlice(nodes, verbose, result)
 	return result
 }
 
-func nodesAsStringSlice(nodes []Node, template *string, nestingLevel int) []string {
-	var result []string
+func nodesAsStringSlice(nodes []Node, verbose bool, buffer chan string) {
 	lastElementIndex := len(nodes) - 1
 	for pos, node := range nodes {
 		isLast := pos == lastElementIndex
-		result = append(result, nodeAsString(node, template, nestingLevel, isLast))
-		result = append(result, nodesAsStringSlice(node.GetChildren(), template, nestingLevel+1)...)
-	}
-	return result
-}
-
-func nodeAsString(node Node, template *string, nestingLevel int, isLast bool) string {
-	var result string
-	separator := formatSeparartor(nestingLevel)
-	stringStart := getStringStart(isLast)
-	switch *template {
-	//case fullTemplate:
-	default:
-		result = fmt.Sprintf(shortTemplate, separator, stringStart, node.Name())
-	}
-	return result
-}
-
-func formatSeparartor(nestingLevel int) string {
-	var result string = ""
-	switch nestingLevel {
-	case 0:
-		return result
-	default:
-		slice := make([]string, nestingLevel)
-		for pos := range slice {
-			slice[pos] = separator
+		if isLast {
+			nodes[pos].SetLast()
 		}
-		result = strings.Join(slice, "")
+		nodeAsString(node, verbose, buffer)
+		nodesAsStringSlice(node.GetChildren(), verbose, buffer)
 	}
-	return result
 }
 
-func getStringStart(isLast bool) string {
-	switch isLast {
-	case true:
-		return lastStringStart
-	default:
-		return normalStringStart
+func nodeAsString(node Node, verbose bool, buffer chan string) {
+	// do not draw files
+	if !verbose && !node.IsDir() {
+		return
 	}
+	nodeStringbuffer := make(chan string)
+	switch verbose {
+	case true:
+		nodeStringbuffer <- fmt.Sprintf(fullTemplate, node.Name(), node.Size())
+
+	case false:
+		nodeStringbuffer <- fmt.Sprintf(shortTemplate, node.Name())
+	}
+	if node.IsLast() {
+		nodeStringbuffer <- lastStringStart
+	} else {
+		nodeStringbuffer <- normalStringStart
+	}
+
+	for _, parent := range node.GetParents() {
+		if parent.IsLast() {
+			nodeStringbuffer <- emptySeparator
+		} else {
+			nodeStringbuffer <- noEmptySeparator
+		}
+	}
+	//close(nodeStringbuffer)
+	buffer <- strings.Join(func() []string {
+		length := len(nodeStringbuffer)
+		result := make([]string, length)
+		for pos := range result {
+			result[pos] = <-nodeStringbuffer
+		}
+		return result
+	}(), "")
 }
