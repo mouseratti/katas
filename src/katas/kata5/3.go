@@ -12,6 +12,5 @@ func make_kata3(f *fixtures.Fixture) {
 		}
 		last -= 1
 	}
-
 }
 
